@@ -257,7 +257,7 @@ public partial class MapHandler
     }
     public static void MapGeoJson(MapHandler handler, Map map)
     {
-        if (map.GeoJson != null)
+        if (!string.IsNullOrEmpty(map.GeoJson))
         {
             var layer = new GeoJsonLayer(handler.NativeMap, new Org.Json.JSONObject(map.GeoJson));
             layer.AddLayerToMap();
