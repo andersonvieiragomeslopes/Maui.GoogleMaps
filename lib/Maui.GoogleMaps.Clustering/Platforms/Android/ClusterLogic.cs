@@ -63,7 +63,7 @@ namespace Maui.GoogleMaps.Clustering.Platforms.Android
             clusterManager = new ClusterManager(context, NativeMap)
             {
 
-                Algorithm = ClusteredMapp.ClusterOptions.Algorithm switch
+                Algorithm = ClusteredMapp.ClusterAlgorithmType switch
                 {
                     ClusterAlgorithm.GridBased => new GridBasedAlgorithm(),
                     ClusterAlgorithm.VisibleNonHierarchicalDistanceBased => new NonHierarchicalViewBasedAlgorithm(
@@ -180,6 +180,7 @@ namespace Maui.GoogleMaps.Clustering.Platforms.Android
         {
             outerItem.NativeObject = marker;
             onMarkerCreated(outerItem, marker);
+            if(outerItem.Label != "Pin 5")
             clusterManager.AddItem(marker);
             itemsDictionary.Add(marker.Id, outerItem);
         }
