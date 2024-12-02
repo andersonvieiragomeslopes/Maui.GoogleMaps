@@ -180,7 +180,6 @@ namespace Maui.GoogleMaps.Clustering.Platforms.Android
         {
             outerItem.NativeObject = marker;
             onMarkerCreated(outerItem, marker);
-            if(outerItem.Label != "Pin 5")
             clusterManager.AddItem(marker);
             itemsDictionary.Add(marker.Id, outerItem);
         }
