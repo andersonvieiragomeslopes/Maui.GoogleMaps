@@ -2,7 +2,7 @@
 
 namespace Maui.GoogleMaps.Platforms.Android.Callbacks;
 
-internal class OnMapReadyCallback : Java.Lang.Object, IOnMapReadyCallback
+public class OnMapReadyCallback : Java.Lang.Object, IOnMapReadyCallback
 {
     private readonly Action<GoogleMap> _handler;
 

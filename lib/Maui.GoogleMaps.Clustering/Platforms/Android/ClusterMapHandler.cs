@@ -8,6 +8,7 @@ using Maui.GoogleMaps.Clustering.Platforms.Android;
 using Maui.GoogleMaps.Handlers;
 using Maui.GoogleMaps.Logics;
 using Maui.GoogleMaps.Logics.Android;
+using Maui.GoogleMaps.Platforms.Android.Callbacks;
 
 namespace Maui.GoogleMaps.Clustering
 {
@@ -43,11 +44,10 @@ namespace Maui.GoogleMaps.Clustering
                     transaction.Replace(global::Android.Resource.Id.Content, mapFragment);
                     transaction.Commit();
 
-                    //mapFragment.GetMapAsync(new OnMapReadyCallback(googleMap =>
-                    //{
-                    //    handler.NativeMap = googleMap;
-                    //    handler.OnMapReady();
-                    //}));
+                    mapFragment.GetMapAsync(new OnMapReadyCallback(googleMap =>
+                    {
+                        handler.OnMapReady();
+                    }));
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace Maui.GoogleMaps.Clustering
         protected virtual void OnClusteredMarkerDeleted(Pin outerItem, ClusteredMarker innerItem)
         {
         }
-        protected override void OnMapReady()
+        public override void OnMapReady()
         {
             base.OnMapReady();
             var cluster = VirtualView as ClusteredMap;

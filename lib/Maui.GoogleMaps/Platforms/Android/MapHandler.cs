@@ -131,7 +131,7 @@ public partial class MapHandler
         base.DisconnectHandler(platformView);
     }
 
-    protected virtual void OnMapReady()
+    public virtual void OnMapReady()
     {
         var nativeMap = NativeMap;
 

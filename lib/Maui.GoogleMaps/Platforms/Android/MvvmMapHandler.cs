@@ -11,7 +11,7 @@ public partial class MvvmMapHandler
 {
     protected InfoWindowAdapter InfoWindowAdapter { get; set; }
 
-    protected override void OnMapReady()
+    public override void OnMapReady()
     {
         base.OnMapReady();
 
