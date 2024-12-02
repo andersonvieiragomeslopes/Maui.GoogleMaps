@@ -155,16 +155,17 @@ namespace Maui.GoogleMaps.Handlers
                 handler.NativeMap.MapStyle = mapStyle;
             }
         }
-        public static void MapGeoJson(MapHandler handler, Map map)
-        {
-            if (!string.IsNullOrEmpty(map.GeoJson))
-            {
-            var geoJsonParser = new GMUGeoJSONParser(map.GeoJson);
-            geoJsonParser.Parse();
+        //public static void MapGeoJson(MapHandler handler, Map map)
+        //{
+        //    if (!string.IsNullOrEmpty(map.GeoJson))
+        //    {
+        //        var geoJsonParser = new GMUGeoJSONParser(map.GeoJson);
+        //        geoJsonParser.Parse();
 
-            var renderer = new GMUGeometryRenderer(handler.NativeMap, geometries: geoJsonParser.Features);
-            renderer.Render();
-        }
+        //        var renderer = new GMUGeometryRenderer(handler.NativeMap, geometries: geoJsonParser.Features);
+        //        renderer.Render();
+        //    }
+        //}
         public static void MapSelectedPin(MapHandler handler, Map map)
         {
             foreach (var logic in handler.Logics)
