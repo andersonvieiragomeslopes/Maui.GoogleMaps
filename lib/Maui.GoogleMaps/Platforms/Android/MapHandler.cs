@@ -256,38 +256,6 @@ public partial class MapHandler
             new MapStyleOptions(map.MapStyle.JsonStyle) :
             null);
     }
-    public static void MapGeoJson(MapHandler handler, Map map)
-    {
-        if (!string.IsNullOrEmpty(map.GeoJson))
-        {
-            var layer = new GeoJsonLayer(handler.NativeMap, new Org.Json.JSONObject(map.GeoJson));
-            layer.AddLayerToMap();
-        }
-    }
-    public static void MapId(MapHandler handler, Map map)
-    {
-        if (!string.IsNullOrEmpty(map.MapId))
-        {
-            GoogleMapOptions options = new GoogleMapOptions();
-            options.InvokeMapId(map.MapId);
-            var mapFragment = SupportMapFragment.NewInstance(options);
-
-            var activity = Platform.CurrentActivity as AndroidX.Fragment.App.FragmentActivity;
-            if (activity != null)
-            {
-                var fragmentManager = activity.SupportFragmentManager;
-                var transaction = fragmentManager.BeginTransaction();
-                transaction.Replace(global::Android.Resource.Id.Content, mapFragment);
-                transaction.Commit();
-
-                mapFragment.GetMapAsync(new OnMapReadyCallback(googleMap =>
-                {
-                    handler.NativeMap = googleMap;
-                    handler.OnMapReady();
-                }));
-            }
-        }
-    }
     public static void MapSelectedPin(MapHandler handler, Map map)
     {
         if (handler.NativeMap != null)

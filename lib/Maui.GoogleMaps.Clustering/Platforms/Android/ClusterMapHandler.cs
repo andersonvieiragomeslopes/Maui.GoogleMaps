@@ -3,6 +3,7 @@
 
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
+using Android.Gms.Maps.Utils.Data.GeoJson;
 using Maui.GoogleMaps.Clustering.Platforms.Android;
 using Maui.GoogleMaps.Handlers;
 using Maui.GoogleMaps.Logics;
@@ -18,6 +19,38 @@ namespace Maui.GoogleMaps.Clustering
         /// </summary>
         /// <param name="outerItem">the pin.</param>
         /// <param name="innerItem">the marker options.</param>
+        public static void MapGeoJson(ClusterMapHandler handler, ClusteredMap map)
+        {
+            if (!string.IsNullOrEmpty(map.GeoJson))
+            {
+                var layer = new GeoJsonLayer(handler.NativeMap, new Org.Json.JSONObject(map.GeoJson));
+                layer.AddLayerToMap();
+            }
+        }
+        public static void MapId(MapHandler handler, ClusteredMap map)
+        {
+            if (!string.IsNullOrEmpty(map.MapId))
+            {
+                GoogleMapOptions options = new GoogleMapOptions();
+                options.InvokeMapId(map.MapId);
+                var mapFragment = SupportMapFragment.NewInstance(options);
+
+                var activity = Platform.CurrentActivity as AndroidX.Fragment.App.FragmentActivity;
+                if (activity != null)
+                {
+                    var fragmentManager = activity.SupportFragmentManager;
+                    var transaction = fragmentManager.BeginTransaction();
+                    transaction.Replace(global::Android.Resource.Id.Content, mapFragment);
+                    transaction.Commit();
+
+                    //mapFragment.GetMapAsync(new OnMapReadyCallback(googleMap =>
+                    //{
+                    //    handler.NativeMap = googleMap;
+                    //    handler.OnMapReady();
+                    //}));
+                }
+            }
+        }
         protected virtual void OnClusteredMarkerCreating(Pin outerItem, MarkerOptions innerItem)
         {
 
@@ -56,15 +89,6 @@ namespace Maui.GoogleMaps.Clustering
             base.OnMapReady();
             var cluster = VirtualView as ClusteredMap;
         }
-
-    }
-    public partial class ClusterMapHandler : MapHandler
-    {
-
-        public ClusterMapHandler()
-        {
-
-        }
         public override void InitLogics() => Logics = new List<BaseLogic<GoogleMap>>
         {
             new PolylineLogic(),
@@ -74,5 +98,6 @@ namespace Maui.GoogleMaps.Clustering
             new TileLayerLogic(),
             new GroundOverlayLogic(Config.GetBitmapdescriptionFactory())
         };
-    }
+
+    }   
 }
