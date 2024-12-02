@@ -1,5 +1,6 @@
 ﻿using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
+using Android.Gms.Maps.Utils.Data.GeoJson;
 using Android.Graphics;
 using Android.OS;
 
@@ -254,7 +255,15 @@ public partial class MapHandler
             new MapStyleOptions(map.MapStyle.JsonStyle) :
             null);
     }
+    public static void MapGeoJson(MapHandler handler, Map map)
+    {
+        if (map.GeoJson != null)
+        {
+            var layer = new GeoJsonLayer(handler.NativeMap, new Org.Json.JSONObject(map.GeoJson));
+            layer.AddLayerToMap();
+        }
 
+    }
     public static void MapSelectedPin(MapHandler handler, Map map)
     {
         if (handler.NativeMap != null)

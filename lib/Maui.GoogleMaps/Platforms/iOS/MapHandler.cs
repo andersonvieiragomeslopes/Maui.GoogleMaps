@@ -1,5 +1,5 @@
 ﻿using Google.Maps;
-
+using Google.Maps.Utils;
 using Maui.GoogleMaps.Internals;
 using Maui.GoogleMaps.iOS;
 using Maui.GoogleMaps.iOS.Extensions;
@@ -155,7 +155,14 @@ namespace Maui.GoogleMaps.Handlers
                 handler.NativeMap.MapStyle = mapStyle;
             }
         }
+        public static void MapGeoJson(MapHandler handler, Map map)
+        {
+            var geoJsonParser = new GMUGeoJSONParser(map.GeoJson);
+            geoJsonParser.Parse();
 
+            var renderer = new GMUGeometryRenderer(handler.NativeMap, geometries: geoJsonParser.Features);
+            renderer.Render();
+        }
         public static void MapSelectedPin(MapHandler handler, Map map)
         {
             foreach (var logic in handler.Logics)
