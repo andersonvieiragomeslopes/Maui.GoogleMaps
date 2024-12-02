@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-
 using Maui.GoogleMaps.Extensions;
 using Maui.GoogleMaps.Helpers;
 using Maui.GoogleMaps.Internals;
@@ -48,6 +47,7 @@ public partial class Map : View, IMap, IEnumerable<Pin>
         defaultBindingMode: BindingMode.TwoWay);
 
     public static readonly BindableProperty MapStyleProperty = BindableProperty.Create(nameof(MapStyle), typeof(MapStyle), typeof(Map), null);
+    public static readonly BindableProperty GeoJsonProperty = BindableProperty.Create(nameof(GeoJson), typeof(string), typeof(Map), default(string));
 
     readonly ObservableCollection<Pin> _pins = new ObservableCollection<Pin>();
     readonly ObservableCollection<Polyline> _polylines = new ObservableCollection<Polyline>();
@@ -90,7 +90,6 @@ public partial class Map : View, IMap, IEnumerable<Pin>
     MapSpan _visibleRegion;
     MapRegion _region;
     bool _useMoveToRegisonAsInitialBounds = true;
-
     public Map()
     {
         VerticalOptions = HorizontalOptions = LayoutOptions.Fill;
@@ -150,7 +149,11 @@ public partial class Map : View, IMap, IEnumerable<Pin>
         get { return (MapStyle)GetValue(MapStyleProperty); }
         set { SetValue(MapStyleProperty, value); }
     }
-
+    public string GeoJson
+    {
+        get { return (string)GetValue(GeoJsonProperty); }
+        set { SetValue(GeoJsonProperty, value); }
+    }
     public IEnumerable ItemsSource
     {
         get => (IEnumerable)GetValue(ItemsSourceProperty);
