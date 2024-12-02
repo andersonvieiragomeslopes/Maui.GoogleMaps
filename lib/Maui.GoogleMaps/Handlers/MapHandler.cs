@@ -22,6 +22,7 @@ public partial class MapHandler : ViewHandler<Map, MapView>
         [nameof(IMap.MyLocationEnabled)] = MapMyLocationEnabled,
         [nameof(IMap.MapStyle)] = MapMapStyle,
         [nameof(IMap.GeoJson)] = MapGeoJson,
+        [nameof(IMap.MapId)] = MapId,
         [nameof(IMap.SelectedPin)] = MapSelectedPin,
 #endif
     };

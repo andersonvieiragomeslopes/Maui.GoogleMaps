@@ -5,9 +5,7 @@ using Maui.GoogleMaps.iOS;
 using Maui.GoogleMaps.iOS.Extensions;
 using Maui.GoogleMaps.Logics;
 using Maui.GoogleMaps.Logics.iOS;
-
 using UIKit;
-
 using GCameraPosition = Google.Maps.CameraPosition;
 
 namespace Maui.GoogleMaps.Handlers
@@ -159,11 +157,28 @@ namespace Maui.GoogleMaps.Handlers
         {
             if (!string.IsNullOrEmpty(map.GeoJson))
             {
-            var geoJsonParser = new GMUGeoJSONParser(map.GeoJson);
-            geoJsonParser.Parse();
+                var geoJsonParser = new GMUGeoJSONParser(map.GeoJson);
+                geoJsonParser.Parse();
 
-            var renderer = new GMUGeometryRenderer(handler.NativeMap, geometries: geoJsonParser.Features);
-            renderer.Render();
+                var renderer = new GMUGeometryRenderer(handler.NativeMap, geometries: geoJsonParser.Features);
+                renderer.Render();
+            }
+        }
+        public static void MapId(MapHandler handler, Map map)
+        {
+            if (!string.IsNullOrEmpty(map.MapId))
+            {
+                var mapViewOptions = new MapViewOptions()
+                {
+                    //MapId = map.MapId,
+                };
+                //var camera = new GMSCameraPosition(map.InitialCameraUpdate.Position.Latitude,
+                //                                   map.InitialCameraUpdate.Position.Longitude,
+                //                                   (float)map.InitialCameraUpdate.Zoom);
+                //var mapView = new GMSMapView(frame: CoreGraphics.CGRect.Empty, options: mapViewOptions, camera: camera);
+                //handler.PlatformView = mapView;
+            }
+
         }
         public static void MapSelectedPin(MapHandler handler, Map map)
         {

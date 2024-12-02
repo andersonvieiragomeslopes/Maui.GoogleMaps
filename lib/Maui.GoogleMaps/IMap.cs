@@ -10,6 +10,7 @@ namespace Maui.GoogleMaps
         public bool MyLocationEnabled { get; set; }
         public MapStyle MapStyle { get; set; }
         public string GeoJson { get; set; }
+        public string MapId { get; set; }
         public Pin SelectedPin { get; set; }
     }
 }

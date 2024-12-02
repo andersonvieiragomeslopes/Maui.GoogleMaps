@@ -10,6 +10,7 @@ using Maui.GoogleMaps.Android.Extensions;
 using Maui.GoogleMaps.Internals;
 using Maui.GoogleMaps.Logics;
 using Maui.GoogleMaps.Logics.Android;
+using Maui.GoogleMaps.Platforms.Android.Callbacks;
 using Maui.GoogleMaps.Platforms.Android.Listeners;
 
 using Math = System.Math;
@@ -262,7 +263,30 @@ public partial class MapHandler
             var layer = new GeoJsonLayer(handler.NativeMap, new Org.Json.JSONObject(map.GeoJson));
             layer.AddLayerToMap();
         }
+    }
+    public static void MapId(MapHandler handler, Map map)
+    {
+        if (!string.IsNullOrEmpty(map.MapId))
+        {
+            GoogleMapOptions options = new GoogleMapOptions();
+            options.InvokeMapId(map.MapId);
+            var mapFragment = SupportMapFragment.NewInstance(options);
 
+            var activity = Platform.CurrentActivity as AndroidX.Fragment.App.FragmentActivity;
+            if (activity != null)
+            {
+                var fragmentManager = activity.SupportFragmentManager;
+                var transaction = fragmentManager.BeginTransaction();
+                transaction.Replace(global::Android.Resource.Id.Content, mapFragment);
+                transaction.Commit();
+
+                mapFragment.GetMapAsync(new OnMapReadyCallback(googleMap =>
+                {
+                    handler.NativeMap = googleMap;
+                    handler.OnMapReady();
+                }));
+            }
+        }
     }
     public static void MapSelectedPin(MapHandler handler, Map map)
     {
