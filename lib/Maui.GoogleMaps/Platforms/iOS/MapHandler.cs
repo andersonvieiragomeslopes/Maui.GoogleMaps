@@ -154,18 +154,7 @@ namespace Maui.GoogleMaps.Handlers
                 var mapStyle = Google.Maps.MapStyle.FromJson(map.MapStyle.JsonStyle, null);
                 handler.NativeMap.MapStyle = mapStyle;
             }
-        }
-        //public static void MapGeoJson(MapHandler handler, Map map)
-        //{
-        //    if (!string.IsNullOrEmpty(map.GeoJson))
-        //    {
-        //        var geoJsonParser = new GMUGeoJSONParser(map.GeoJson);
-        //        geoJsonParser.Parse();
-
-        //        var renderer = new GMUGeometryRenderer(handler.NativeMap, geometries: geoJsonParser.Features);
-        //        renderer.Render();
-        //    }
-        //}
+        }      
         public static void MapSelectedPin(MapHandler handler, Map map)
         {
             foreach (var logic in handler.Logics)
